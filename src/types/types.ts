@@ -27,7 +27,7 @@ export type ProfileType = {
 };
 
 export type UserType = {
-  if: number;
+  id: number;
   name: string;
   status: string;
   photos: PhotoType;
