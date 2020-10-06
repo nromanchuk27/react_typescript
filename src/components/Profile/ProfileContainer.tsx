@@ -1,11 +1,25 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
+import { History, LocationState } from "history";
 import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 
-class ProfileContainer extends React.Component {
+type PropsType = {
+    authorizedUserId: number
+    getStatus: (id: number) => void
+    getUserProfile: (id: number) => void
+    history: History<LocationState>
+  };
+/*   
+  type StateType = {
+    editMode: boolean;
+    status: string;
+  }; */
+
+
+class ProfileContainer extends React.Component<PropsType> {
 
     refreshProfile() {
         let userId = this.props.match.params.userId;
@@ -23,7 +37,7 @@ class ProfileContainer extends React.Component {
         this.refreshProfile();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: , prevState, snapshot) {
         if (this.props.match.params.userId != prevProps.match.params.userId ) {
             this.refreshProfile();
         }

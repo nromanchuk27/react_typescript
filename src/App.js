@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import './App.css';
-import Navbar from './components/Navbar/Navbar';
-import { BrowserRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import React, {Component} from "react";
+import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 
-import UsersContainer from './components/Users/UsersContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
-import LoginPage from './components/Login/Login';
-import { connect, Provider } from 'react-redux';
-import { compose } from 'redux';
-import { initializeApp } from './redux/app-reducer.ts';
-import Preloader from './components/common/Preloader/Preloader';
-import store from './redux/redux-store';
-import { withSuspense } from './hoc/withSuspense';
+import UsersContainer from "./components/Users/UsersContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
+import {connect, Provider} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./redux/app-reducer.ts";
+import Preloader from "./components/common/Preloader/Preloader";
+import store from "./redux/redux-store";
+import {withSuspense} from "./hoc/withSuspense";
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 
 class App extends Component {
-  catchAllUnhandledErrors = (reason, promise) => {
-    alert('Some error occured');
+  catchAllUnhandledErrors = () => {
+    alert("Some error occured");
     //console.error(promiseRejectionEvent);
   };
   componentDidMount() {
     this.props.initializeApp();
-    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
   componentWillUnmount() {
-    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
   render() {
@@ -40,7 +40,7 @@ class App extends Component {
         <Navbar />
         <div className="app-wrapper-content">
           <Switch>
-            <Route exact path="/" render={() => <Redirect to={'/profile'} />} />
+            <Route exact path="/" render={() => <Redirect to={"/profile"} />} />
 
             <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
 
@@ -62,7 +62,7 @@ const mapStateToProps = state => ({
   initialized: state.app.initialized
 });
 
-let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+let AppContainer = compose(withRouter, connect(mapStateToProps, {initializeApp}))(App);
 
 const SamuraiJSApp = props => {
   return (
