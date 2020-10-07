@@ -24,6 +24,7 @@ export type ProfileType = {
   fullName: string;
   contacts: ContactsType;
   photo: PhotoType;
+  aboutMe: string;
 };
 
 export type UserType = {
